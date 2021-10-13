@@ -8,12 +8,20 @@
 </head>
 <body>
 
-    <% if (kindOfDay === "Saturday" || kindOfDay === "Sunday") { %>
-        <h1 style="color: purple"><%= kindOfDay %> ToDo List</h1>
-    <% } else { %>
-        <h1 style="color: blue"><%= kindOfDay %> ToDo List</h1>
-    <% } %>   
+   <h1><%= kindOfDay %> </h1>
+
+   <ul>
+       <!-- for loop to receive the array of new items-->
+      <% for (let i = 0; i < newListItems.length; i++) { %>
+            <li><%= newListItems[i] %> </li>
+       <% } %>
+
+   </ul>
    
+   <form action="/" method="post">
+       <input type="text" name="newItem">
+       <button type="submit" name="button">Add</button>
+   </form>
     
     
 </body>

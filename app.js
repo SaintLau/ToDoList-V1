@@ -10,6 +10,9 @@ app.set('view engine', 'ejs');
 //for body parser
 app.use(bodyParser.urlencoded({extended: true}));
 
+//to use other files, like css
+app.use(express.static("public"));
+
 let items = []; //need to declare at the top and reset later the value otherwise app will crash due to scope
 
 app.get('/', (req, res) => {

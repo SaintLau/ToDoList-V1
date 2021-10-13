@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
+const date = require(__dirname + "/date.js"); //requiring the module created
+
 
 
 //for ejs:
@@ -14,30 +16,22 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 //variables to store data
-let items = []; //need to declare at the top and reset later the value otherwise app will crash due to scope
-let workItems = [];
+const items = []; //need to declare at the top and reset later the value otherwise app will crash due to scope
+const workItems = [];
 
 app.get('/', (req, res) => {
   
- let today = new Date();
+    const day = date.getDate(); //-> from the module created, calling the function 
 
-  let options = {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long'
-  };
-
-  let day = today.toLocaleDateString("en-US", options);
-
-  res.render("list", {
-    listTitle: day,
-    newListItems: items
-  }); //-> list is the doc that needs to exict inside the views. kindOfDay is the key in the list doc to where we want to send data. The data we want to send is inside the day var. Second pair refer to add new items to the list  
+    res.render("list", {
+        listTitle: day,
+        newListItems: items
+    }); //-> list is the doc that needs to exict inside the views. kindOfDay is the key in the list doc to where we want to send data. The data we want to send is inside the day var. Second pair refer to add new items to the list  
 });
 
 app.post('/', (req, res) => {
 
-    let item = req.body.newItem;
+    const item = req.body.newItem;
 
     //list is from the name given to the btn
     if(req.body.list === 'Work') {
